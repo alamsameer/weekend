@@ -1,3 +1,4 @@
-fastapi
+fastapi==0.112.0
+rembg==2.0.57
 uvicorn
-rembg
+
