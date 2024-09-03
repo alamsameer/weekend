@@ -10,6 +10,7 @@ const TrackerContainer: React.FC = () => {
           tasksCompleted={Math.floor(Math.random() * 10)}
           effortHours={Math.floor(Math.random() * 10)}
           effortValue={Math.floor(Math.random() * 10)}
+          streakBrokenDays={Math.floor(Math.random() * 4)}
         />
       ))}
     </div> 

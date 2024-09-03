@@ -4,15 +4,19 @@ interface TrackerProps {
   tasksCompleted: number;
   effortHours: number;
   effortValue: number;
+  streakBrokenDays: number;
 }
 
-const Tracker: React.FC<TrackerProps> = ({ tasksCompleted, effortHours, effortValue }) => {
+const Tracker: React.FC<TrackerProps> = ({ tasksCompleted, effortHours, effortValue, streakBrokenDays }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const calculateBackgroundColor = () => {
     const totalEffort = tasksCompleted + effortHours + effortValue;
-    const intensity = Math.min(255, totalEffort * 5); // Adjust the multiplier as needed
-    return `rgb(0, 0, ${intensity})`;
+    if (totalEffort > 0) {
+      const intensity = Math.min(255, totalEffort * 5); // Adjust the multiplier as needed
+      return `rgb(0, 0, ${intensity})`;
+    }
+    return streakBrokenDays === 1 ? '#FF442A' : '#CCCCCC';
   };
 
   return (
@@ -27,11 +31,11 @@ const Tracker: React.FC<TrackerProps> = ({ tasksCompleted, effortHours, effortVa
           <p>Tasks Completed: {tasksCompleted}</p>
           <p>Effort Hours: {effortHours}</p>
           <p>Effort Value: {effortValue}</p>
+          <p>Streak Broken Days: {streakBrokenDays}</p>
         </div>
       )}
     </div>
   );
 };
 
-export default Tracker; 
-
+export default Tracker;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { FaGoogle } from 'react-icons/fa'; // Import the Google icon
+import { useNavigate } from 'react-router-dom';
+
 
 interface BasicInfoProps {
   formData: {
@@ -11,7 +13,10 @@ interface BasicInfoProps {
   handleNext: () => void;
 }
 
+
 const BasicInfo: React.FC<BasicInfoProps> = ({ formData, handleChange, handleNext }) => {
+  const navigate = useNavigate();
+
   const handleGoogleSignUp = () => {
     // Add your Google signup logic here
     console.log('Google signup clicked');
@@ -81,8 +86,8 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ formData, handleChange, handleNex
           </button>
           <button
             type="button"
-            onClick={handleSignIn}
-            className="w-1/2  text-white rounded-lg text-md font-medium shadow-lg transition duration-300 hover:bg-blue-600"
+            onClick={() => navigate('/signin')}
+            className="w-1/2 p-3 text-white rounded-lg text-md font-medium shadow-lg transition duration-300 hover:bg-blue-600"
           >
             Sign In
           </button>

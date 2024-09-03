@@ -6,11 +6,13 @@ import TrackerContainer from '../components/TrackerContainer.tsx';
 import NavContainer from '../components/NavContainer.tsx';
 import Leaderboard from '../components/Leaderboard.tsx';
 import EffortLogger from '../components/EffortLogger.tsx';
+import { useAuth } from '../context/AuthContext.tsx';
 
 const Home: React.FC = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { logout } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -24,6 +26,15 @@ const Home: React.FC = () => {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      logout();
+      navigate('/signin');
+    } catch (error) {
+      console.error('Failed to sign out', error);
+    }
   };
 
   return (
@@ -46,6 +57,14 @@ const Home: React.FC = () => {
           </div>
           <div className="mt-4">
             <EffortLogger />
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={handleSignOut}
+              className="md:hidden mt-4 max-w-32 bg-gradient-to-r from-blue-500 to-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg transition duration-300 hover:bg-gradient-to-r hover:from-green-500 hover:to-blue-500"
+            >
+              Sign Out
+            </button>
           </div>
         </div>
         <button 
